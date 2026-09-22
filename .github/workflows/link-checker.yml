@@ -26,8 +26,12 @@ jobs:
     name: Link Checker
     uses: the-lupaxa-project/workflows/.github/workflows/reusable-link-checker.yml@master
     with:
-      # Placeholder incoming-webhook URLs used as examples in the docs.
-      whitelist: "https://outlook.office.com/webhook/YOUR_WEBHOOK_URL,https://contoso.webhook.office.com/webhookb2/YOUR_WEBHOOK_URL"
+      # Placeholder webhook URLs and the documented prefixes. Those addresses
+      # 404, so the checker must not treat them as broken links.
+      whitelist: "https://outlook.office.com/webhook/YOUR_WEBHOOK_URL,\
+        https://contoso.webhook.office.com/webhookb2/YOUR_WEBHOOK_URL,\
+        https://outlook.office.com/webhook/,\
+        https://outlook.office365.com/webhook/"
     secrets: inherit
 
   generate-workflow-summary:
