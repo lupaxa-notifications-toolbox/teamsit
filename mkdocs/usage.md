@@ -3,7 +3,7 @@
 Use `teamsit` to post one message or one MessageCard.
 Pass the webhook URL with `--webhook`, or select a profile with `--profile`.
 
-## CLI flags
+## CLI Flags
 
 | Flag              | Default          | Description                                |
 | :---------------- | :--------------- | :----------------------------------------- |
@@ -26,7 +26,7 @@ teamsit --webhook "$TEAMS_WEBHOOK_URL" --title Deploy --color 0078D4 --text "Hel
 One of them is required. `--timeout` must be greater than `0`. A flag overrides
 the same field from the selected profile.
 
-## Config file
+## Config File
 
 Profiles live in one YAML file. The default path is `$HOME/.teamsit.yml`.
 Pass `--config` when the file lives somewhere else.

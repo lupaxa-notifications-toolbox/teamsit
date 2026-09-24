@@ -1,6 +1,6 @@
 # Reference
 
-## CLI arguments
+## CLI Arguments
 
 | Flag              | Default          | Description                                |
 | :---------------- | :--------------- | :----------------------------------------- |
@@ -24,7 +24,7 @@ Pass `--webhook`, or `--profile` with a `webhook_url` in the config file.
 `--config` selects a file other than `$HOME/.teamsit.yml`. CLI flags override
 the selected profile.
 
-## Config file
+## Config File
 
 The default path is `$HOME/.teamsit.yml`, from `default_config_path()`.
 `--config` selects another file and requires `--profile`.
@@ -39,7 +39,7 @@ The default path is `$HOME/.teamsit.yml`, from `default_config_path()`.
 The file must contain a `profiles` mapping. Profile names are strings.
 Unknown keys are rejected. CLI flags override the selected profile.
 
-## Exit codes
+## Exit Codes
 
 | Code | When                                                         |
 | :--- | :----------------------------------------------------------- |

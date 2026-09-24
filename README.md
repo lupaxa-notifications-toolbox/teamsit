@@ -4,15 +4,9 @@
   </a>
 </p>
 
-<h1 align="center">teamsit</h1>
+<h1 align="center">Teamsit</h1>
 
 Send Microsoft Teams messages through an incoming webhook.
-
-<p align="center">
-  <a href="https://teamsit.thelupaxaproject.org/">Documentation</a>
-  ·
-  <a href="https://github.com/lupaxa-notifications-toolbox/teamsit">GitHub</a>
-</p>
 
 ## Install
 
@@ -75,6 +69,16 @@ client.send_message("Hello, Teams!")
 make init
 make python-install-dev
 make python-check
+```
+
+## Documentation
+
+Site pages live in `mkdocs/` and publish to
+<https://teamsit.thelupaxaproject.org/>.
+
+```bash
+make init
+make python-install-dev
 make mkdocs-serve
 ```
 

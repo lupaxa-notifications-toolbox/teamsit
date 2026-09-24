@@ -1,4 +1,4 @@
-# Getting started
+# Getting Started
 
 ## Requirements
 
@@ -13,7 +13,7 @@ pip install lupaxa-teamsit
 teamsit --help
 ```
 
-## First run
+## First Run
 
 ```bash
 teamsit --webhook "$TEAMS_WEBHOOK_URL" --title "Deploy" --text "Hello, Teams!"
@@ -22,7 +22,7 @@ teamsit --webhook "$TEAMS_WEBHOOK_URL" --title "Deploy" --text "Hello, Teams!"
 The command exits `0` when Teams accepts the message. Put the webhook URL in
 the environment, or in a profile, rather than in shell history.
 
-## Config file
+## Config File
 
 Profiles live in `$HOME/.teamsit.yml`. Pass `--config` when the file lives
 somewhere else. `--config` requires `--profile`.
@@ -53,7 +53,7 @@ Module entry point:
 python -m lupaxa.teamsit --version
 ```
 
-### From source (development)
+### From Source (Development)
 
 ```bash
 make init
@@ -61,7 +61,7 @@ make python-install-dev
 teamsit --version
 ```
 
-## Makefile helpers
+## Makefile Helpers
 
 ```bash
 make init                 # clone makefile-skills into .makefiles/

@@ -1,12 +1,12 @@
 # Examples
 
-## Plain text
+## Plain Text
 
 ```bash
 teamsit --webhook "$TEAMS_WEBHOOK_URL" --text "Deploy finished"
 ```
 
-## Title and color
+## Title and Color
 
 ```bash
 teamsit \
@@ -23,7 +23,7 @@ teamsit --webhook "$TEAMS_WEBHOOK_URL" --card \
   '{"summary": "Deploy finished", "themeColor": "0078D4", "text": "All jobs passed"}'
 ```
 
-## Validation post
+## Validation Post
 
 ```bash
 teamsit --webhook "$TEAMS_WEBHOOK_URL" --validate
