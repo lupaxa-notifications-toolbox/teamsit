@@ -8,6 +8,9 @@
 
 Send Microsoft Teams messages through an incoming webhook.
 
+Requires Python 3.13 or newer. A successful post returns when Teams answers
+HTTP 200.
+
 ## Install
 
 ```bash
@@ -19,16 +22,45 @@ teamsit --help
 
 ```bash
 teamsit --webhook "$TEAMS_WEBHOOK_URL" --text "Hello, Teams!"
+teamsit --webhook "$TEAMS_WEBHOOK_URL" --title Deploy --color 0078D4 --text "Hello"
 teamsit --profile testing --text "Hello, Teams!"
 teamsit -p alerts --config "$HOME/work/teamsit.yml" --text "Disk full"
+teamsit --webhook "$TEAMS_WEBHOOK_URL" --validate
 python -m lupaxa.teamsit --version
 ```
 
 The webhook URL must be an Office 365 connector address
-(`https://outlook.office.com/webhook/…`) or a Teams incoming webhook
+(`https://outlook.office.com/webhook/…` or
+`https://outlook.office365.com/webhook/…`) or a Teams incoming webhook
 (`https://….webhook.office.com/webhookb2/…`).
-`--text`, `--card`, and `--validate` are mutually exclusive.
-Flags override the same fields from the selected profile.
+`--text`, `--card`, and `--validate` are mutually exclusive, and one of them
+is required. Flags override the same fields from the selected profile.
+
+| Flag              | Default          | Description                          |
+| :---------------- | :--------------- | :----------------------------------- |
+| `--webhook`, `-w` | profile value    | Microsoft Teams incoming webhook URL |
+| `--profile`, `-p` | —                | Profile name in the config file      |
+| `--config`        | `~/.teamsit.yml` | Config file path                     |
+| `--text`, `-t`    | —                | Message text                         |
+| `--title`         | profile value    | Card title                           |
+| `--color`         | `00FF00`         | Theme color as 6-digit hex           |
+| `--card`          | —                | MessageCard JSON object              |
+| `--validate`      | —                | Send a validation message            |
+| `--timeout`, `-T` | `10`             | Request timeout in seconds           |
+| `--version`       | —                | Print the package version and exit   |
+
+`--timeout` must be greater than `0`. `--color` is six hex digits, with or
+without a leading `#`. Escaped newlines in `--text` are sent as real line
+breaks, so `Hello\\nthere` arrives as two lines. The text is posted as an
+Office 365 MessageCard: `summary` and `activityTitle` use `--title` when it
+is set, and `themeColor` uses `--color`. `--validate` posts
+`This is a validation message`.
+
+| Code | When                                                         |
+| :--- | :----------------------------------------------------------- |
+| `0`  | Help, version, or Teams accepted the post                    |
+| `1`  | The webhook was rejected, or the post failed                 |
+| `2`  | Command-line usage, a bad config, or argument parsing failed |
 
 ## Config
 
@@ -47,7 +79,8 @@ profiles:
     title: Notice
 ```
 
-Each profile may set `webhook_url`, `title`, `color`, and `timeout`.
+Each profile may set `webhook_url`, `title`, `color`, and `timeout`. Other
+keys are rejected. `--webhook` is required when you do not pass `--profile`.
 
 ## Library
 
@@ -61,7 +94,14 @@ client = Teamsit(
     color=profile.color or "00FF00",
 )
 client.send_message("Hello, Teams!")
+client.send("Hello\\nfrom the library")
+client.send_card('{"summary": "Deploy finished", "text": "All jobs passed"}')
 ```
+
+`send` is an alias of `send_message`. A card posted with `send_card` receives
+`@type`, `@context`, and `themeColor` when those fields are absent.
+`load_profile` reads `$HOME/.teamsit.yml` when no path is passed. A missing
+file, unknown profile, or invalid YAML raises `ConfigError`.
 
 ## Development
 
@@ -69,17 +109,6 @@ client.send_message("Hello, Teams!")
 make init
 make python-install-dev
 make python-check
-```
-
-## Documentation
-
-Site pages live in `mkdocs/` and publish to
-<https://teamsit.thelupaxaproject.org/>.
-
-```bash
-make init
-make python-install-dev
-make mkdocs-serve
 ```
 
 <a href="https://github.com/the-lupaxa-project">
